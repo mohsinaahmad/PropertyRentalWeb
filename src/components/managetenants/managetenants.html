@@ -1,0 +1,135 @@
+﻿<!-- dashboard_sect -->
+<tmpl-header></tmpl-header>
+<!-- dashboard_sect -->
+<div class="page-wrap">
+    <div class="dashboard_sect">
+        <div class="container-fluid">
+            <div class="dashboard_top">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class=""><a href="landlord-dashboard.html">Dashboard</a></li>
+                    <li class="active">Tenant Case Logs</li>
+                </ol>
+                <ul class="tenants_col tenants_col1">
+                    <data-owl-carousel class="owl-carousel" data-options="{pagination: true, rewindNav : false}">
+
+                        <li owl-carousel-item="" ng-class="{'active':filtername===prop.id}" ng-repeat="prop in properties" class="item" ng-click="getproperty(prop.id)">
+                            <a style="cursor:pointer;"><i class="fa fa-home"></i><br>{{prop.name}}</a>
+                        </li>
+                    </data-owl-carousel>
+                </ul>
+                <div class="pull-right">
+                    <a href="landlord-dashboard.html" class="btn btn-info back"><span></span> back to dashboard</a>
+                 </div>
+              </div>
+            <div class="w100p pull-left portfolio" ng-if="properties.length>0">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="box_col_sm">
+                            <div class="title">
+                                <b>Tenants</b>
+                                <ul class="tenants_col">
+                                    <li ng-if="properties.length>0" ng-repeat="property in properties"></li>
+                                </ul>
+                            </div>
+                            <div class="case-logs create_case">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <th width="20%">Property, Unit</th>
+                                            <th>Tenant</th>
+                                            <th>Status</th>
+                                            <th>Tenancy Start</th>
+                                            <th>Tenancy End</th>
+                                            <th>Rent</th>
+                                            <th>Deposit</th>
+                                            <th width="11%"></th>
+                                        </tr>
+                                        <tr ng-repeat="unit in property.propertyUnits | orderBy:'unitName'" >
+                                            <td>{{property.name}}, {{unit.unitName}}</td>
+                                            <td><a href="#" ng-click="movetoeditprop(unit.id,property.id)">{{unit.firstName}} {{unit.lastName}}</a></td>
+                                            <td ng-class="getClass(unit.tenancyEndDate,property.currentDate)">
+                                                {{getClass(unit.tenancyEndDate,property.currentDate)}}
+                                            </td>
+                                            <td>{{unit.tenancyStartDate| date : "dd-MM-yyyy" }}</td>
+                                            <td>{{unit.tenancyEndDate| date : "dd-MM-yyyy" }}</td>
+                                            <td><img src="images/icon2.png"> {{unit.rent}}</td>
+                                            <td><img src="images/icon2.png"> {{unit.deposit}}</td>
+                                            <td><a ng-if="unit.firstName" ng-click="Propertygo(property.id)" style="cursor:pointer;" class="update_button1">Create Case</a>
+                                               
+                                        </tr>
+                                        <tr ng-if="property.propertyUnits.length==0">
+                                            <td colspan="8">No Tenant has been Added yet !</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12 mt20">
+                    <div class="row">
+                        <div class="box_col_sm case_logs0 case_logs9">
+                            <div id="createcase" style="display:none;" class="title"><b>Case Logs</b> <a ng-click="Propertygo(property.id)" style="cursor:pointer;" class="btn btn-primary pull-right">Create Case</a> </div>
+                            <div class="case-logs">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <th width="30%">Case Creation (Creator)</th>
+                                            <th>Case Id</th>
+                                            <th>Status</th>
+                                            <th>Description</th>
+                                            <th>Documents</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr ng-repeat="case in propertyCases">
+                                            <td><span>{{case.createdAt | date : "dd-MMM-yyyy"}}</span><span>{{case.createdAt | date : "hh:mm a"}}</span> <span class="tag">{{case.createdByrole}}</span></td>
+                                            <td>{{case.caseId}}</td>
+                                            <td>{{case.status}}</td>
+                                            <td><p class="w100p">{{case.caseDetail}}</p></td>
+                                            <td>
+                                                <a ng-repeat="doc in case.caseDocs" style="cursor:pointer;" ng-click="openplease(doc.file)" class="link">View Attachment</a>
+                                                <span ng-if="case.caseDocs.length==0">No Attachment</span>
+                                            </td>
+                                            <td><a ng-show="case.status == 'Active'" class="update_button" href="/editcase/{{case.id}}">Update / Respond</a></td>
+                                        </tr>
+                                        <tr ng-if="propertyCases.length==0">
+                                            <td colspan="6">No Case Log has been added yet !</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w100p pull-left portfolio" ng-if="properties.length==0">No Tenant has been Added yet !</div>
+            </div>
+    </div>
+    </div>
+
+
+    <!-- popup images -->
+    <div class="modal fade" ng-class="fadinw" id="myModalimage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-show="modalimage">
+        <div class="modal-dialog modal-dialog05" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeclsthis()"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove_section">
+
+                        <iframe ng-src="{{currenturl}}"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="loader" ng-show="loadershow">
+    <img src="images/loader.svg" />
+</div>
+    <!-- dashboard_sect end -->
+    <div class="clearfix"></div>
+    <tmpl-footer></tmpl-footer>

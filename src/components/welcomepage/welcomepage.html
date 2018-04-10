@@ -1,0 +1,323 @@
+<tmpl-header></tmpl-header>
+<style>
+    .tenant_dashboard .box_col_sm {
+        min-height: 458px;
+    }
+</style>
+<div class="page-wrap">
+    <div class="dashboard_sect">
+        <div class="container-fluid">
+            <div class="dashboard_top">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Tenant Dashboard</li>
+                </ol>
+            </div>
+            <div class="w100p pull-left portfolio">
+                <div class="row">
+                    <div class="portfolio_col tenant_dashboard">
+                        <div class="col-sm-4">
+                            <div class="box_col_sm">
+                                <div class="title"><b>Tenancy details</b> <a class="btn btn-primary pull-right" style="cursor:pointer;" ng-click="openpleasetenant(propertyDocs)">Key Property Info</a></div>
+                                <div class="key_property_info">
+                                    <h4 ng-if="propertytenantUnits.property.name">{{propertytenantUnits.property.name}}<span ng-if="propertytenantUnits.property.address"><img src="images/icon1.png">{{propertytenantUnits.property.address}}</span></h4>
+                                    <p><b>Tenancy Start Date:</b> <span> {{propertytenantUnits.tenancyStartDate | date : "dd/MM/yyyy" }}</span></p>
+                                    <p><b>Tenancy End Date:</b> {{propertytenantUnits.tenancyEndDate | date : "dd/MM/yyyy" }}</p>
+                                    <!--<p><b>Ast ends on:</b> {{propertytenantUnits.tenancyEndDate | date : "dd/MM/yyyy" }}</p>-->
+                                    <p><b>Monthly rent:</b> <img src="images/icon2.png"> {{propertytenantUnits.rent}}</p>
+                                    <p><b>Rent next due on:</b> {{propertytenantUnits.rentDueDate}}</p>
+                                    <p><b>Deposit held:</b> <img src="images/icon2.png" /> {{propertytenantUnits.deposit}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="box_col_sm box_col_sm04">
+                                <div class="title"><b>Rent</b> </div>
+                                <div class="table-responsive rental-income">
+                                    <table class="table income_c">
+                                        <tr>
+                                            <th width="30%">Date</th>
+                                            <th>Amount Paid</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <tr ng-repeat="paym in payments">
+                                            <td><p>{{paym.transationDate | date:'dd/MM/yyyy'}}</p></td>
+                                            <td><p><img src="images/icon2.png"> {{paym.amount}}</p></td>
+                                            <td ng-if="paym.transationDate">Received</td>
+                                        </tr>
+                                        <tr ng-if="payments.length==0">
+                                            <td><p>{{propertytenantUnits.rentDueDate}}/{{currentm()}}</p></td>
+                                            <td><p><img src="images/icon2.png"> {{propertytenantUnits.rent}}</p></td>
+                                            <td>{{getresponsestatus(propertytenantUnits.rentDueDate)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><p>{{propertytenantUnits.rentDueDate}}/{{currentmnow()}}</p></td>
+                                            <td><p><img src="images/icon2.png"> {{propertytenantUnits.rent}}</p></td>
+                                            <td>{{getrespon(propertytenantUnits.rentDueDate)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="account_details">
+                                    <p><paypal-button ng-if="misub<=10 || over==true" env="opts.env" class="pull-right paypal58" client="opts.client" payment="opts.payment" commit="opts.commit" on-authorize="opts.onAuthorize"></paypal-button></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="box_col_sm">
+                                <div class="title"><b>Documents</b></div>
+                                <div class="documents_list">
+                                    <li ng-repeat="showdocs in docs">
+                                        <span>{{showdocs.name}}</span>
+                                        <a style="cursor:pointer;" ng-click="openplease(showdocs.file)" class="btn btn-info">View</a>
+                                </div>
+                                <div class="w100p pull-left">
+                                    <div class="box_col_sm-4">
+                                        <div class="title"><b>Upload Documents</b></div>
+                                        <div class="property_col pt15">
+                                            <div class="property_list mt5">
+                                                <div class="wlecome-page choose-file-error">
+                                                    <span ng-show="showhide" class="error-msg">Please fill required fields</span>
+
+                                                    <ul class="passport01">
+                                                        <li>
+                                                            <div ng-if="!tendoc.file">
+                                                                <div class="uploadfile">
+                                                                    <div class="form-group">
+                                                                        <div class="choose-file">
+                                                                            <h6>Passport</h6>
+                                                                            <label class="file_button">
+                                                                                <input ng-model="photo" id="myFileFields"
+                                                                                       onchange="$('#btnUploaddoc').click();"
+                                                                                       type="file" accept="image/*" />
+                                                                                <span>File Upload</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <input type="button" value="Upload" ng-if="!tendoc.file" ng-click="uploadFile(tendoc.name,'passport')" class="btn btn-primary" id="btnUploaddoc" style="display:none" />
+                                                        </li>
+                                                        <li>
+                                                            <div ng-if="!tendoc.file">
+                                                                <div class="uploadfile">
+                                                                    <div class="form-group">
+                                                                        <div class="choose-file">
+                                                                            <h6>Utility Bill</h6>
+
+
+                                                                            <label class="file_button">
+                                                                                <input ng-model="photo" id="myFileFieldbill"
+                                                                                       onchange="$('#btnUploadgas').click();"
+                                                                                       type="file" accept="image/*" />
+                                                                                <span>File Upload</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <input type="button" value="Upload" ng-if="!tendoc.file" ng-click="uploadFile(tendoc.name, 'bill')" class="btn btn-primary" id="btnUploadgas" style="display:none" />
+                                                        </li>
+                                                        <li>
+                                                            <div ng-if="!tendoc.file">
+                                                                <div class="uploadfile input_erro">
+                                                                    <div class="form-group">
+                                                                        <div class="choose-file">
+                                                                            <h6>Others <span class="requiredfield"></span></h6>
+
+                                                                            <label class="file_button">
+                                                                                <input ng-model="photo" id="myFileField"
+                                                                                       onchange="$('#btnUploadothers').click();"
+                                                                                       type="file" accept="image/*" />
+                                                                                <span>File Upload</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <input type="button" value="Upload" ng-if="!tendoc.file" ng-click="uploadFile(tendoc.name)" class="btn btn-primary" id="btnUploadothers" style="display:none" />
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="box_col_sm-4" ng-show="morespec">
+                                        <div class="property_col pt15">
+                                            <div class="property_list mt5">
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" placeholder="Name" name="name" value="" ng-model="valueabove" />
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <input type="button" class="btn btn-info pull-right add-tenant-button" value="Save" ng-click="savedata(valueabove)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="col-sm-12 mt20">
+                    <div class="row">
+                        <div class="box_col_sm">
+                            <div id="createcase" class="title"><b>Case Logs</b> <a ng-click="Propertygo(propertytenantUnits.property.id)" class="btn btn-primary pull-right">Create Case</a> </div>
+                            <div class="case-logs">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <th width="30%">Case Creation (Creator)</th>
+                                            <th>Case Id</th>
+                                            <th>Status</th>
+                                            <th>Description</th>
+                                            <th>Documents</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr ng-repeat="case in propertyCases">
+                                            <td><span>{{case.createdAt | date : "dd-MMM-yyyy"}}</span><span>{{case.createdAt | date : "hh:mm a"}}</span> <span class="tag">{{case.createdByrole}}</span></td>
+                                            <td>{{case.caseId}}</td>
+                                            <td>{{case.status}}</td>
+                                            <td><p class="w100p">{{case.caseDetail}}</p></td>
+                                            <td>
+                                                <a ng-repeat="doc in case.caseDocs" href="{{doc.file}}" class="link" download="" target="_blank">View Attachment</a>
+                                                <span ng-if="case.caseDocs.length==0">No Attachment</span>
+                                            </td>
+                                            <td><a ng-show="case.status == 'Active'" class="update_button" href="/editcase/{{case.id}}">Update / Respond</a></td>
+                                        </tr>
+                                        <tr ng-if="propertyCases.length==0">
+                                            <td colspan="6">Please Create a Case.You haven't Created yet !</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loader" ng-show="loadershow">
+    <img src="images/loader.svg" />
+</div>
+<!-- Modal -->
+<div class="popup  login-form new_popup">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Event</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Event Title</label>
+                                <input class="form-control" placeholder="e.g. Building white wash" type="text">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input class="form-control example2 date_col" placeholder="Select date" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default mr15" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="paypalpopup" class="pop_up">
+    <div class="bg-color"></div>
+    <div class="pop_up1">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="ok()" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Successful</h4>
+        </div>
+        <div class="modal-body">
+            <p>Payment Successful</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- popup image sedit -->
+<div class="modal fade" ng-class="fadinwnn" id="myModalimagea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-show="modalimages">
+    <div class="modal-dialog modal-dialog05" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeclsthisapp()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="remove_section">
+
+                    <iframe ng-src="{{currenturl}}"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- popup images -->
+<div class="modal fade" ng-class="fadinw" id="myModalimage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-show="modalimage">
+    <div class="modal-dialog modal-dialog05" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeclsthis()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="remove_section">
+
+                    <iframe ng-src="{{currenturl}}"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Remove upload doc-->
+<div class="modal fade" id="myModaluploadtenantdocument" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Delete Tenant Document</h4>
+            </div>
+            <div class="modal-body">
+                <div class="remove_section">
+                    <i class="fa fa-exclamation-circle"></i>
+                    <span>Are you sure you want to remove the tenant Document ?</span>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove($index)">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loader" ng-show="loaderhide">
+    <img src="images/loader.svg" />
+</div>
+<div class="clearfix"></div>
+<tmpl-footer></tmpl-footer>

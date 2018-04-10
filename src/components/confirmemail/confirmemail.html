@@ -1,0 +1,24 @@
+<tmpl-header></tmpl-header>
+<div class="popup  login-form sign-up" id="confirmpageid">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Confirmed Email</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger fade in" ng-if="unsuccess">
+                    <div>
+                        {{unsuccess}} Go to <a href="/login"> login</a> page.
+                    </div>
+                </div>
+                <div class="alert alert-success fade in" ng-if="success">
+                    <div>
+                        {{success}} Go to <a href="/login"> login</a> page.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<tmpl-footer></tmpl-footer>

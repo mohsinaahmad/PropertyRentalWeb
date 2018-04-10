@@ -1,0 +1,291 @@
+<tmpl-header></tmpl-header>
+<!-- dashboard_sect -->
+<div class="page-wrap">
+    <div class="dashboard_sect">
+        <div class="container">
+            <div class="dashboard_top">
+                <ol class="breadcrumb">
+                    <li><a>Home</a></li>
+                    <li class=""><a href="landlord-dashboard.html">Dashboard</a></li>
+                    <li class="active">Add New Tenant</li>
+                </ol>
+                <div class="pull-right">
+                    <a href="landlord-dashboard.html" class="btn btn-info back"><span></span> Back to Dashboard</a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="property_box mt5 add-new-tenant">
+                <form name="addtenant" ng-submit="savetenant(addtenant)" novalidate>
+                    <div class="tab-pane active" id="tab1">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="top_heding1">Add New tenant</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="w100p pull-left">
+                                        <div class="form-group">
+                                            <label>Name <span class="requiredfield">*</span></label>
+                                            <input type="text" class="form-control" name="Name" ng-model="Name" placeholder="John Martin" required>
+                                        </div>
+                                        <p ng-show="addtenant.Name.$invalid && !addtenant.Name.$pristine" class="help-block">Please enter Tenant Name</p>
+                                    </div>
+                                    <div class="w100p pull-left">
+                                        <div class="form-group">
+                                            <label>Phone <span class="requiredfield">*</span></label>
+                                            <input type="text" valid-number class="form-control" ng-maxlength="11" name="Phone" ng-model="Phone" placeholder="e.g. 07775 821122" required>
+                                        </div>
+                                        <p ng-show="addtenant.Phone.$invalid && !addtenant.Phone.$pristine" class="help-block">Please enter valid Phone Number</p>
+                                    </div>
+                                    <div class="w100p pull-left">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group custom-datepicker">
+                                                    <label>Tenancy Start Date</label>
+                                                    <p class="input-group customcalander">
+                                                        <input type="text" class="form-control" datepicker-popup="{{format}}" name="sdate" ng-blur="daytentstart()" ng-model="sdate" ng-init="sdate=sdate" is-open="opened" datepicker-options="dateOptions"
+                                                               close-text="Close" placeholder="DD / MM / YYYY" max-date="maxDate" />
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <p ng-show="startfuture" class="help-block help_red">Future Date not allowed</p>
+                                                <p ng-show="addtenant.sdate.$invalid && !addtenant.sdate.$pristine" class="help-block">Enter correct Date (DD/MM/YYYY)</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group custom-datepicker">
+                                                    <label>Tenancy End Date</label>
+                                                    <p class="input-group customcalander">
+                                                        <input type="text" class="form-control" datepicker-popup="{{format}}" min-date="sdate" ng-blur="daytccentstart()" name="edate" ng-model="edate" ng-init="edate=edate" is-open="opened1" datepicker-options="dateOptions"
+                                                               close-text="Close" placeholder="DD / MM / YYYY" />
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default" ng-click="cal($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <p ng-show="futureend" class="help-block help_red">Previous Date not allowed</p>
+                                                <p ng-show="addtenant.edate.$invalid && !addtenant.edate.$pristine" class="help-block">Enter correct Date (DD/MM/YYYY)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="w100p pull-left">
+                                        <div class="box_col_sm-4">
+                                            <div class="title"><b>Upload Documents</b></div>
+                                            <div class="property_col pt15">
+                                                <div class="property_list mt5">
+                                                    <div class="">
+                                                        <table>
+                                                            <tr ng-repeat="tendoc in tenantDocs">
+                                                                <td>
+                                                                    <input type="text" ng-model="tendoc.name" class="date_box pull-right f12" name="" value="">
+                                                                </td>
+                                                                <td ng-if="tendoc.file" class="viewattach"><a href="{{tendoc.file}}" download="" target="_blank">View Attachment</a></td>
+                                                                <td ng-if="!tendoc.file">
+                                                                    <div class="uploadfile">
+
+                                                                        <label class="file_button">
+                                                                            <input ng-model="photo" id="myFileField"
+                                                                                   onchange="$('#myFileField1').click();"
+                                                                                   type="file" accept="image/*" />
+                                                                            <span>File Upload</span>
+                                                                        </label>
+                                                                        <input type="button" value="Upload" ng-if="!tendoc.file" ng-click="uploadFile(tendoc.name)" class="btn btn-primary" id="myFileField1" style="display:none" />
+
+
+                                                                        <!--<div class="form-group">
+                                                                            <div class="choose-file">
+
+                                                                                <span style="cursor:pointer;" class="update_button">Choose File</span>
+                                                                                <input type="file" demo-file-model="myFile" class="form-control" id="myFileField" />
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <button type="button" style="cursor:pointer;" ng-if="!tendoc.file" ng-click="uploadFile(tendoc.name)" class="btn btn-primary">Upload</button>-->
+                                                                        <span class="filename">{{myFile.name}}</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><a class="fa fa-trash" data-toggle="modal" data-target="#myModaluploadtenantdocument" ng-click="removeast($index)"></a></td>
+                                                            </tr>
+                                                            <tr ng-if="tenantDocs.length < 11">
+                                                                <td colspan="4"><a style="cursor:pointer;" class="more_link pull-left" ng-click="morespecname()">Upload document</a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box_col_sm-4" ng-show="morespec">
+                                            <div class="property_col pt15">
+                                                <div class="property_list mt5">
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" placeholder="Name" name="name" value="" ng-model="valueabove" />
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <input type="button" class="btn btn-info pull-right add-tenant-button" value="Save" ng-click="savedata(valueabove)" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="w100p pull-left">
+                                        <div class="form-group">
+                                            <label>Email <span class="requiredfield">*</span></label>
+                                            <input type="email" class="form-control" name="Email" ng-model="Email" placeholder="Email" required>
+                                        </div>
+                                        <p ng-show="addtenant.Email.$invalid && !addtenant.Email.$pristine" class="help-block">Please enter valid Email</p>
+                                    </div>
+
+                                    <div class="w100p pull-left">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Deposit</label>
+                                                    <input type="text" valid-number class="form-control euro_symbol" name="deposit" ng-model="deposit" placeholder="">
+                                                </div>
+                                                <p ng-show="addtenant.deposit.$invalid && !addtenant.deposit.$pristine" class="help-block">Please enter the amount</p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Agreed Rent</label>
+                                                    <input type="text" valid-numbery class="form-control euro_symbol" name="arent" ng-model="arent" placeholder="">
+                                                </div>
+                                                <p ng-show="addtenant.arent.$invalid && !addtenant.arent.$pristine" class="help-block">Please enter the amount</p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group custom-datepicker">
+                                                    <label>Rent Due Date</label>
+                                                    <select class="form-control custom_select" ng-model="rentDueDate">
+                                                        <option ng-repeat="i in getNumber(number) track by $index" ng-value="$index+1">{{$index+1}}</option>
+
+                                                    </select>
+
+                                                 
+                                                </div>
+                                                <p ng-show="addtenant.duedate.$invalid && !addtenant.duedate.$pristine" class="help-block">Please select the rent due date</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="w100p pull-left">
+                                        <div class="form-group account_cols">
+                                          
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Bank</label>
+                                                        <input class="form-control" placeholder="" bank" ng-model="bank" HSBC" type="text">
+                                                    </div>
+                                                    <p ng-show="addtenant.bank.$invalid && !addtenant.bank.$pristine" class="help-block">Please enter your Bank Name</p>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Sort Code</label>
+                                                        <input class="form-control example" name="scode" ng-model="scode" ng-maxlength="6" placeholder="Eg. 403015" type="text" valid-number>
+                                                    </div>
+                                                    <p ng-show="addtenant.scode.$invalid && !addtenant.scode.$pristine" class="help-block">Please enter valid Code</p>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Account Number</label>
+                                                        <input class="form-control example2" name="accnum" ng-model="accnum" ng-maxlength="8" placeholder="Eg. 7758212" type="text" valid-number>
+                                                    </div>
+                                                    <p ng-show="addtenant.accnum.$invalid && !addtenant.accnum.$pristine" class="help-block">Please enter your valid account number</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w100p pull-left" ng-if="data.length>1">
+                                        <div class="form-group">
+                                            <label>Assign unit to tenant</label>
+
+                                            <select class="form-control custom_select" ng-model="selectedunit" ng-change="cccc(selectedunit)">
+                                                <option ng-repeat="d in data" value="{{d.id}}">{{d.unitName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom_buttons">
+                            <div class="pull-right">
+                                <a class="btn btn-info mr15" ng-click="canceltenant()">Cancel</a>
+                                <button type="submit" value="save" ng-disabled="addtenant.$invalid" class="btn btn-primary btnNext">Save Tenant</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <!--Remove upload doc-->
+            <div class="modal fade" id="myModaluploadtenantdocument" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="gridSystemModalLabel">Delete Tenant Document</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="remove_section">
+                                <i class="fa fa-exclamation-circle"></i>
+                                <span>Are you sure you want to remove the tenant Document ?</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove($index)">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" ng-class="schnge" id="simplepopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-show="simplextenant">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="gridSystemModalLabel">Already Assigned Tenant</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="remove_section">
+                                <i class="fa fa-exclamation-circle"></i>
+                                <span>This unit has already assigned Tenant. Please select another Unit!</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="nosimple()">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="loader" ng-show="loadershow">
+                <img src="images/loader.svg" />
+            </div>
+            <!-- dashboard_sect end -->
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+
+<div class="loader" ng-show="loaderhide">
+    <img src="images/loader.svg" />
+</div>
+
+<!-- dashboard_sect end -->
+<tmpl-footer></tmpl-footer>

@@ -1,0 +1,244 @@
+<tmpl-header></tmpl-header>
+<div class="popup  login-form sign-up" id="testing">
+    <div class="alert alert-danger fade in" ng-if="unsuccess">
+        <button class="close" style="top: 114px;right: 11px;" type="button" data-dismiss="alert">
+            <i class="fa fa-times-circle-o" ng-click="close()"></i>
+        </button>
+
+        <div>
+            {{unsuccess}}
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-if="gggggg">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Successful</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="remove_section">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span>{{success}}</span>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="yes()"  data-dismiss='modal'>OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Sign Up</h4>
+            </div>
+            <div class="modal-body">
+                <p class="heading">To create your account, please enter the details</p>
+                <form name="signupForm" ng-submit="submitForm()" novalidate>
+                    <input type="hidden" name="_csrf" value="<%-_csrf%>">
+                    <div class="form">
+                        <div class="input-group">
+
+                            <select ng-model="prefixed" name="prefixed" class="form-control custom_select" required>
+                                <option value=""> -- Please select title -- </option>
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Ms">Ms</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Dr">Dr</option>
+                            </select>
+                        </div>
+                        <p ng-show="signupForm.prefixed.$invalid && !signupForm.prefixed.$pristine" class="help-block">Please select title</p>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-user"></i></span>
+                            <input class="form-control" name="firstName" ng-model="firstName" placeholder="First Name" type="text" autofocus required>
+                        </div>
+                        <p ng-show="signupForm.firstName.$invalid && !signupForm.firstName.$pristine" class="help-block">Please enter first name</p>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-user"></i></span>
+                            <input class="form-control" ng-model="lastName" name="lastName" placeholder="Last Name" type="text" required>
+                        </div>
+                        <p ng-show="signupForm.lastName.$invalid && !signupForm.lastName.$pristine" class="help-block">Please enter last name</p>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-user"></i></span>
+                            <input class="form-control" ng-model="userName" name="userName" ng-required="required1" ng-change="myFunc1()" minlength="5" maxlength="50" placeholder="Choose your username" type="text" required>
+                        </div>
+
+                        <p ng-show="signupForm.userName.$error.minlength" class="help-block">Min length should be 5 char</p>
+                        <p ng-show="signupForm.userName.$error.required" class="help-block">Please enter user name</p>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-password"></i></span>
+                            <input class="form-control" ng-model="password" name="password" placeholder="Create a password" type="password" required>
+                        </div>
+                        <p ng-show="signupForm.password.$invalid && !signupForm.password.$pristine" class="help-block">Please enter password</p>
+                       
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-password"></i></span>
+                            <input class="form-control" ng-model="confirmPassword"
+                                   name="confirmPassword" placeholder="Confirm your password" type="password" required password-verify="{{password}}">
+                        </div>
+                        <p ng-show="signupForm.confirmPassword.$error.passwordVerify" class="help-block">Enter confirm password same as new password</p>
+
+                        <div class="form-group" ng-if="password">
+                            <label>Password Strength</label>
+                            <password-strength ng-model="password"></password-strength>
+                        </div>
+
+                      
+
+                        <div class="w100p mb20">
+                            <p class="input-group customcalander">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" datepicker-options="dateOptions" ng-model="edate" is-open="opened1" name="DOB"
+                                        close-text="Close" placeholder="Date of birth (DD / MM / YYYY)" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-default0010" ng-click="cal($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                            <p ng-show="signupForm.DOB.$invalid && !signupForm.DOB.$pristine" class="help-block">Enter your correct DOB (DD / MM / YYYY)</p>
+                              
+                           
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-mobile"></i></span>
+                            <input class="form-control" id="contactNum"
+                                   name="contactNum" ng-maxlength="11" placeholder="Mobile Phone Number"
+                                   ng-model="contactNum" type="text"  numbers-only>
+                        </div>
+                        <p ng-show="signupForm.contactNum.$error.pattern" class="help-block">Not a valid phone number</p>
+                        <p ng-show="signupForm.contactNum.$error.maxlength" class="help-block">Not a valid phone number</p>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-email"></i></span>
+                            <input class="form-control" placeholder="Your current email address"
+                                   type="email" name="email" ng-model="email" required ng-pattern="/^.+@.+\..+$/">
+                        </div>
+                        <p ng-show="signupForm.email.$invalid && !signupForm.email.$pristine" class="help-block">Please enter email</p>
+                        <div class="w100p mb20">
+                            <select class="form-control custom_select" ng-model="location">
+                                <option value="" selected>-Location-</option>
+                                <option ng-repeat="loc in locations |orderBy:'name'" >{{loc.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="signup-terms">
+                        <li class="checkbox"><input id="termsConditions" ng-model="termsConditions" name="termsConditions" type="checkbox" required> <label for="termsConditions">By signing up, I agree with <a href="#">Terms of service &amp; Privacy Policy</a></label></li>
+                      </div>
+                    
+                    <div class="login-buttons">
+                        <input value="sign up" class="btn btn-info" ng-disabled="signupForm.$invalid" type="submit" >
+                       
+                        
+                    </div>
+                    <p class="note">Already have an account? <strong>Please <a href="/login">login</a></strong></p>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<tmpl-footer></tmpl-footer>
+<script>
+
+    // validatations
+    $.validator.setDefaults({
+        ignore: [],
+        // any other default options and/or rules
+    });
+    // When the browser is ready...
+    $(function () {
+
+        // Setup form validation on the #signup-form element
+        $("#signup-form").validate({
+
+            // Specify the validation rules
+            rules: {
+
+                firstName: "required",
+                lastName: "required",
+                userName: { required: true, minlength: 5 },
+                password: {
+                    required: true,
+                    minlength: 8,
+                    maxlength: 15,
+
+                },
+                confirmPassword: {
+                    equalTo: "#password",
+                    minlength: 8,
+                    maxlength: 15
+                },
+                gender: "required",
+                email: "required",
+                termsConditions: "required"
+            },
+
+            // Specify the validation error messages
+            messages: {
+                firstName: "Please enter first name",
+                lastName: "Please enter last name",
+                userName: { required: "Please enter username", minlength: "Min length should be 5 char" },
+                password: { required: "Please enter password", minlength: "Min length should be 8 char", maxlength: "Max length is 15 char" },
+                confirmPassword: { required: "Enter confirm password same as password" },
+                gender: "Please select your gender",
+                email: "Please enter email",
+                termsConditions: "Please agree to the terms and conditions"
+            },
+
+            submitHandler: function (form) {
+                if (validDOB()) {
+                    form.submit();
+                }
+                else {
+                    $("#doberror").text('Please enter valid date of birth');
+                    $("#doberror").css('display', 'block')
+                }
+            }
+        });
+
+    });
+
+    function validDOB() {
+        var dobDay = $("#dobDay").val();
+        var dobMonth = $("#dobMonth").val();
+        var dobYear = $("#dobYear").val();
+        var dob = new Date(dobDay + '/' + dobMonth + '/' + dobYear);
+        if (dobDay != "" || dobMonth != "" || dobYear != "") {
+            if (dobDay == "" || dobMonth == "" || dobYear == "") {
+                return false;
+            }
+            else {
+                if (dob != 'Invalid Date' && dob <= new Date()) {
+                    return true;
+                }
+            }
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+
+<script type="text/ng-template" id="myModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"></button>
+        <h4 class="modal-title">Success</h4>
+    </div>
+    <div class="modal-body">
+        <p>{{propname}}</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+       
+    </div>
+
+</script>

@@ -1,0 +1,153 @@
+<tmpl-header></tmpl-header>
+
+<!-- dashboard_sect -->
+<div class="page-wrap">
+    <div class="dashboard_sect">
+        <div class="container-fluid">
+            <div class="dashboard_top">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class=""><a ui-sref="dashboard">Dashboard</a></li>
+                    <li class="active">View Portfolio</li>
+                </ol>
+                <div class="checkbox_cols">
+                    <label ng-repeat="prop in properties">
+                        <input type="checkbox" ng-model="prop.id" ng-click="onebyone(prop.id)" />
+                        <div class="prop_name">
+                            <i class="fa fa-home"></i> <br />
+                            {{prop.name}}
+                        </div>
+                       </label>
+                </div>
+
+                <div class="pull-right">
+                    <a ui-sref="dashboard" class="btn btn-info back"><span></span> back to dashboard</a>
+                    <a ui-sref="addproperty" class="btn btn-primary">Add property</a>
+                </div>
+                <div class="clearfix"></div>
+                <a class="btn btn-primary mt15 pull-left" ng-click="viewallprop()">View All Properties</a>
+            </div>
+            <div class="view-portfolio">
+                <div class="view-portfolio_1" ng-if="properties.length>0" ng-repeat="prop in properties | filter:{id:filtername}">
+                    <div class="table-responsive">
+                        <table class="min_table min_table51">
+                            <tr>
+                                <th>Property</th>
+                                <th width="50%">AST</th>
+                                <th  width="35%">MORTGAGE</th>
+                                <th width="10%">RETURN METRICS</th>
+                            </tr>
+                            <tr>   
+                                <td>Basic Information</td>
+                                <td class="padding0">
+                                    <table class="table2">
+                                        <tr>
+                                            <td width="22%" style="white-space: nowrap;">Rental Units</td>
+                                            <td style="white-space: nowrap;"  align="center" width="19%">Total Rent</td>
+                                            <td width="18%">Active ASTs</td>
+                                            <td width="24%">AST Start Date</td>
+                                            <td style="white-space: nowrap;">AST End Date</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="table3">
+                                        <td>
+                                            Interest
+                                            <br>Rate
+                                        </td>
+                                        <td>
+                                            Monthly
+                                            <br> Mortgage
+                                        </td>
+                                        <td>
+                                            Mortgage
+                                            <br> End Date
+                                        </td>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>Rental Yield</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr class="botder_line">
+                                <td>
+                                    <div class="leasehold_flat leasehold_flat06">
+                                        <img ng-if="prop.propimageurl" src="{{prop.propimageurl}}"/> 
+                                        <img ng-if="!prop.propimageurl" src="/images/house.png" />                                
+                                        <h4 ng-if="prop.name">{{prop.name}}</h4>
+                                        <h6 class="prop00" ng-if="prop.address"><img src="images/icon1.png"> {{prop.address}}</h6>
+                                        <h6 ng-if="prop.currentEstimate" class="blue"><small><b>Current Price:</b></small><img src="images/icon2.png"> {{prop.currentEstimate}}</h6>
+                                        <h6 ng-if="prop.purchaseAmount" class="blue"><small><b>Purchase Price:</b></small><img src="images/icon2.png"> {{prop.purchaseAmount}}</h6>
+                                        <p ng-if="prop.prchaseDate"><b>Purchased on: </b> {{prop.prchaseDate | date:"dd/MM/yyyy"}}</p>
+                                    </div>
+                                    <a class="btn btn-primary mt15" ng-click="proid(prop.id)">Edit</a>
+                                </td>
+                                <td class="padding0">
+                                    <table class="table2" ng-if="prop.propertyUnits.length>0 || prop.propertyUnits!=undefined">
+                                        <tr>
+                                            <td ng-if="prop.propertyUnits.length==1" width="19%"><b style="font-size: 10px;white-space: nowrap;">Single Tenancy</b></td>
+                                            <td ng-if="prop.propertyUnits.length>1" width="22%"></td>
+                                           <td width="19%"><b><img src="images/icon2.png"> {{getsumall(prop.propertyUnits,prop.currentEstimate,prop)}}</b></td>
+                                        </tr>
+                                        <tr ng-repeat="unit in prop.propertyUnits |orderBy:'unitName'">
+                                            <td>{{unit.unitName}}</td>
+                                            <td><span ng-if="unit.rent>0"><img src="images/icon2.png"> {{unit.rent}}</span></td>
+                                               <td width="21%" ng-if="unit.isVacant==1"><img src="images/icon4.png" title="This tenant is InActive !"></td>
+                                            <td width="21%" ng-if="!unit.isVacant==1"><img src="images/icon3.png" title="This tenant is Active !"></td>
+                                            <td width="24%">{{unit.tenancyStartDate | date : "dd/MM/yyyy" }}</td>
+                                            <td>{{unit.tenancyEndDate | date:"dd/MM/yyyy"}}</td>
+                                        </tr>
+                                    </table>
+                                    <table ng-if="prop.propertyUnits.length==0 || prop.propertyUnits==undefined">
+                                        <tr>
+                                            <td>
+                                                No units created yet! please edit to create the units.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="pt0">
+                                    <table class="table3">
+                                        <td  ng-if="prop.interestRate"><b>{{prop.interestRate}}</b><span><b>%</b></span></td>
+                                        <td ng-if="prop.interestRate==0"><b>No Mortgage</b></td>
+                                        <td ng-if="prop.interestRate"><b><img src="images/icon2.png"> {{prop.mortgagePayment}}</b></td>
+                                        <td>
+                                            <b>{{prop.mortgageEndDate | date:"dd/MM/yyyy"}}</b>
+                                        </td>
+                                    </table>
+                                </td>
+
+                                <td class="pt0">
+                                    <table class="table2">
+                                        <tr>
+                                            <td><b>{{prop.TotalSum  | number : 1}}%</b></td>
+                                        </tr>
+                                        <tr ng-repeat="unit in prop.propertyUnits">
+                                            <td>{{getrentalyield(unit.rent,prop.currentEstimate) | number : 1}}%</td>
+                                        </tr>
+                                    </table> 
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="view-portfolio_1" ng-if="properties.length==0">
+                    <div class="no-property">
+                        <p>You haven't added any Property yet. Let's add one!</p>
+                        <a ui-sref="addproperty" class="btn btn-primary">Add property</a>
+                    </div>
+                </div>             
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loader" ng-show="loadershow">
+    <img src="images/loader.svg" />
+</div>
+<!-- dashboard_sect end -->
+<tmpl-footer></tmpl-footer>

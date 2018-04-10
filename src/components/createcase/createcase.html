@@ -1,0 +1,154 @@
+<tmpl-header></tmpl-header>
+<!-- dashboard_sect -->
+<div class="page-wrap">
+    <div class="dashboard_sect">
+        <div class="container">
+            <div class="dashboard_top">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class=""><a>Dashboard</a></li>
+                    <li class="active">Create Case</li>
+                </ol>
+                <div class="pull-right">
+                    <a ng-click="gotodash()" class="btn btn-info back"><span></span> Back to Dashboard</a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="property_box mt5">
+                <form name="addcase" ng-submit="savecase()" novalidate>
+                    <div class="tab-pane active" id="tab1">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="top_heding1">Create Case</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Issue Summary <span class="requiredfield">*</span></label>
+                                            <select class="form-control custom_select" ng-model="issuesummary" name="issuesummary" required>
+                                                <option value="" selected>-- Select Issue Summary --</option>
+                                                <option ng-repeat="summary in issusummaries" value="{{summary.id}}/{{summary.name}}">{{summary.name}}</option>
+                                            </select>
+                                            <p ng-show="addcase.issuesummary.$invalid && !addcase.issuesummary.$pristine" class="help-block">Please select Issue Summary</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Case Details</label>
+                                            <textarea class="form-control textarea_col" name="caseDetail" ng-model="caseDetail" placeholder="Case Details" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="col-sm-12" ng-if="onlylord=='LandLord'">
+                                        <div class="form-group">
+                                            <label>Case Recipient</label>
+                                            <select class="form-control custom_select" name="CaseRecipient" required>
+                                               <option  ng-selected="{{unit.firstName==tenantUser}}" ng-repeat="unit in propertyunits" ng-if="unit.firstName"  ng-model="tenantUser" value="{{unit.tenantUserId}}">{{unit.firstName}} {{unit.lastName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Upload Property Documents</label>
+                                            <div class="uploadpropertydoc">
+                                                <table class="table_78">
+                                                    <tr>
+                                                        <td width="60%">
+                                                            <div class="rel"><span class="requiredfield"></span>  <input type="text" ng-model="case.name" class="date_box pull-left f12 w90p" name="" value=""></div>
+                                                        </td>
+
+                                                        <td width="23%">
+                                                            <div class="uploadfile input_erro">
+
+
+                                                                <label class="file_button">
+                                                                    <input ng-model="photo" id="myFileField"
+                                                                           onchange="$('#myFileField1').click();"
+                                                                           type="file" accept="image/*" />
+                                                                    <span>File Upload</span>
+                                                                </label>
+                                                                <span class="filename">{{file.name}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td width="20%">
+                                                            <input type="button" value="Upload" ng-if="!case.file" ng-click="uploadFile(case.name)" class="btn btn-primary" id="myFileField1" style="display:none" />                                                        
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-repeat="case in caseDocs">
+                                                        <td><p class="item_name">{{case.name}}</p></td>
+                                                        <td>
+                                                            <a style="cursor:pointer;" ng-click="openplease(case.file)" class="link">View Attachment</a>
+                                                        </td>
+                                                        <td align="center"><a class="fa fa-trash" data-toggle="modal" data-target="#myModaluploaddocument"></a></td>
+                                                    </tr> 
+                                                </table>   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="bottom_buttons">
+                                <div class="pull-right">
+                                    <a class="btn btn-info mr15" ng-click="cancelcase()">Cancel</a>
+                                    <input type="submit" value="Send Case" ng-disabled="addcase.$invalid" class="btn btn-primary btnNext" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--Remove upload doc-->
+            <div class="modal fade" id="myModaluploaddocument" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="gridSystemModalLabel">Delete Document</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="remove_section">
+                                <i class="fa fa-exclamation-circle"></i>
+                                <span>Are you sure you want to remove the Document ?</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove($index)">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- popup images -->
+            <div class="modal fade" ng-class="fadinw" id="myModalimage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-show="modalimage">
+                <div class="modal-dialog modal-dialog05" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeclsthis()"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="remove_section">
+
+                                <iframe ng-src="{{currenturl}}"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dashboard_sect end -->
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="loader" ng-show="loadershow">
+    <img src="images/loader.svg" />
+</div>
+<!-- dashboard_sect end -->
+<tmpl-footer></tmpl-footer>

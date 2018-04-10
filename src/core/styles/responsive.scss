@@ -1,0 +1,258 @@
+/* CSS Document */
+img{max-width:100%;}
+@media screen and (max-width: 639px){
+	.col{display:block; width:100%; min-height:320px;}
+}
+
+@media screen and (max-width: 767px){
+	.navbar-default .navbar-nav > li > a{padding:10px;}
+	.navbar-default .navbar-nav > li.login > a{margin:0 0 20px 0;}
+	.welcome-content{border:none; padding:50px 0 0 0;}
+	.contact h2{padding-top:15%;}
+	.contact-form{padding:50px 0; border:none;}
+	.contact .form-control{margin-bottom:15px;}
+	.contact .row{margin-bottom:0;}
+	.footer{text-align:center;}
+	.footer-nav{text-align:center; padding-top:10px;}
+	.footer-nav li{margin:0 10px;}
+	.services .border, .services-row{border:none;}
+	.scroll-down{display:none;}
+}
+
+@media ( max-width:991px ) {
+.sign-up .modal-dialog {
+  margin: 0;
+  max-width: 100%;
+  padding: 0 10px;
+  width: 800px;
+} 
+.dashboard_top .btn {
+  font-size: 12px;
+} 
+
+
+
+}
+
+
+@media screen and (max-width: 375px){
+.search-box-header{font-size:15px;}
+}
+
+@media screen and (max-width: 768px){
+	.service-box{padding:40px 0;}
+}
+
+
+@media ( max-width: 767px ) {
+.login-form .form-control{font-size: 14px;} 
+.month .form-control {
+  margin-bottom: 20px;
+} 
+.year .input-group {
+  margin-bottom: 0;
+} 
+.year {
+  margin-top: 20px;
+} 
+
+.forgot-pass {
+  text-align: left;margin-top: 5px;
+} 
+
+
+
+}
+
+
+ 
+
+
+@media ( max-width: 1199px ) {
+.update_button, .case-logs .table td .link{white-space: nowrap;}
+
+.custom_rido ul li{ margin: 0;}
+
+.documents_list li span {
+  float: left;
+  width: 100%;
+} 
+.documents_list li .btn {float: left;}
+
+}
+
+@media ( max-width: 991px ) {
+.table-responsive{max-width: 100%;overflow: auto}
+.box_col_sm .title b {
+  float: left;
+  width: 100%;
+} 
+.box_col_sm .btn-primary {
+  float: left!important;
+  margin-top: 9px;
+} 
+.portfolio > .row > .col-sm-5, .portfolio > .row > .col-sm-7,.schedule_col > .row > .col-sm-5, .schedule_col > .row > .col-sm-7{width: 100%;margin-top:20px;}
+.schedule_col {
+  margin-top: 0!important;
+}
+.case-logs table th{font-size: 15px;}
+.navbar-default .navbar-nav > li > a{padding: 7px;}
+.inner-header .navbar-default .navbar-nav > li.user-info img {
+  border-radius: 50%;
+  height: 40px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 40px;
+} 
+.inner-header .navbar-default .navbar-nav > li.user-info > a{padding-left: 54px;}
+.dashboard_top .btn{font-size: 14px;}
+
+.footer-nav li{font-size: 12px;
+    margin-left: 9px;}
+
+   .property_box .form-group > label, .property_box .form-control, .property_box .form-group label.control-label, .radio label{font-size: 11px;} 
+.property_type > .col-sm-6 {
+  width: 100%;
+} 
+.step_box ul li p{font-size: 13px;}
+.bottom_buttons .btn-primary.back, .bottom_buttons .btn-primary, .bottom_buttons .btn-info{  line-height: 26px;font-size: 12px;}
+
+.portfolio_col .col-sm-4, .portfolio_col .col-sm-5, .portfolio_col .col-sm-3 {
+  margin-bottom: 15px;
+  width: 100%;
+}
+    .portfolio_col .col-sm-3 {margin-bottom: 0px;}
+    .case-logs .table td .tag{float: left}
+
+    .pull-right.multiple_cus {
+  float: left!important;
+  margin-top: 7px;
+}
+.multiple_cus ul.multiselect-container {
+  left: 0;
+  
+  right: auto;
+  
+} 
+.dashboard_top .btn {
+  font-size: 12px;
+}     
+input[type="file"] {
+  margin-bottom: 5px;
+} 
+
+}
+
+
+@media ( max-width: 767px ) {
+.dashboard_top .pull-right {
+  margin-top: 10px;
+  width: 100%;
+} 
+.dashboard_top .btn {
+  float: left;
+  font-size: 12px;
+  margin: 7px 0;
+  padding: 11px;
+  width: 100%;
+} 
+.box_col_sm .btn-primary{width: 100%;}
+.box_col_sm .title b{font-size: 14px;}
+ul.portfolio-alerts li p{font-size:13px; }
+ul.portfolio-alerts li small{font-size: 12px;}
+
+body .box_col_sm {
+  margin-bottom: 20px!important;
+  margin-top: 0!important;
+}
+.schedule_col{margin-top: 0px!important}
+.portfolio > .row > .col-sm-5, .portfolio > .row > .col-sm-7, .schedule_col > .row > .col-sm-5, .schedule_col > .row > .col-sm-7 {
+  margin-top: 0;
+  width: 100%;
+} 
+.portfolio > .row > .col-sm-7 > .box_col_sm{margin-bottom: 0px!important;}
+.schedule_col #datetimepicker{padding: 12px 0;}
+.schedule_col .datepicker thead tr:first-child th{font-size: 14px;}
+.box_col_sm{padding: 10px;}
+
+.portfolio .table-responsive{border: none;}
+.box_col_sm .title {
+  line-height: normal;
+  margin: 0;
+  min-height: inherit;
+  padding: 0 0 13px;
+} 
+.inner-header .navbar-default .navbar-nav > li.user-info {
+  background-color: rgba(255, 255, 255, 0.43);
+  margin-left: 0;
+  padding: 7px;
+} 
+.inner-header .navbar-default .navbar-nav > li.user-info .dropdown-menu{position: relative;top: 5px;}
+.dashboard_top{padding-top: 11px;}
+.portfolio {
+  margin-bottom: 7px;
+} 
+.step_box ul{max-width: 100%;}
+
+.step_box ul li:hover a span img, .step_box ul li.active a span img {
+  margin-top: -34px;
+} 
+.step3 > a span > img {
+  margin: 0 0 0 -78px;
+} 
+.step2 > a span img {
+  margin: 0 0 0 -37px;
+} 
+.step_box ul li span img {
+  max-width: initial;
+  width: 100px;
+} 
+.step_box ul li span {
+  display: inline-block;
+  height: 22px;
+  overflow: hidden;
+  width: 32px;
+} 
+.step_box ul li p {
+  font-size: 11px;
+} 
+.nav-tabs1::before{left: 30px; right: 50px; top: 11px;}
+.dashboard_top .breadcrumb li, .dashboard_top .breadcrumb li a{font-size: 11px;}
+.bottom_buttons .btn {
+  margin-bottom: 8px;
+  width: 100%;
+} 
+.property_type:after{display: none;}
+#tab1 .custom_rido{margin-bottom: 15px;}
+.bottom_buttons .pull-right{width: 100%;}
+.bottom_button_td .btn {
+  margin-bottom: 11px;
+  width: 100%;
+} 
+.bottom_button_td{padding: 23px 5px 18px!important;}
+.dashboard_top .btn{padding: 0px; line-height: 39px;}
+.drop-files_col .btn-primary {
+  margin-top: 10px;
+}  
+.property_box .form-group {
+  margin-bottom: 10px;
+} 
+.box_col_sm .title, .portfolio_col .box_col_sm{min-height: initial;}
+
+.clearfix + .col-sm-12.mt20{margin-top: 0!important}
+.property_list table td{padding-left: 8px;padding-right: 8px;}
+
+.new_popup .form-group {
+  margin-bottom: 15px;
+}
+
+.tenant_dashboard .box_col_sm {
+  padding-bottom: 10px!important;
+}
+.account_details p a {
+  float: left;
+  margin-bottom: 7px;
+} 
+.key_property_info h4 span{float: left;margin-top: 5px;width: 100%;margin-bottom: 10px;} 
+}

@@ -1,0 +1,92 @@
+<tmpl-header></tmpl-header>
+<form name="forgetForm" ng-submit="submitForm()" novalidate>
+    <input type="hidden" name="_csrf" value="<%-_csrf%>">
+
+    <div class="popup  login-form">
+        <div class="alert alert-danger fade in" ng-if="unsuccess">
+        <button class="close" style="top: 114px;right: 11px;" type="button" data-dismiss="alert">
+            <i class="fa fa-times-circle-o" ng-click="close()"></i>
+        </button>
+       
+        <div>
+          {{unsuccess}}
+        </div>       
+    </div> 
+        
+        <div class="modal-dialog">
+            <div class="modal-content" ng-if='!mailed'>
+                <div class="modal-header">
+                    <h4 class="modal-title">Forgot Password</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="heading">Please enter email address to get the reset password</p>
+                    <div class="form">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-email"></i></span>
+                            <input class="form-control" placeholder="Email" name="email" type="email" ng-model="vm.email" ng-pattern="/^.+@.+\..+$/" required>                           
+                        </div>
+                        <p ng-show="forgetForm.email.$invalid && !forgetForm.email.$pristine" class="help-block">Please enter username</p>
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="forgot-pass"><a href="/login">Back to Login</a></div>
+                            </div>
+                        </div>
+
+                        <div class="login-buttons">
+                             <button type="submit" class="btn btn-info" ng-disabled="forgetForm.$invalid">Submit</button>
+
+                        </div>
+                        <p class="note">Already have an account? <strong> Please <a href="/login"> login</a></strong></p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-content" ng-if='mailed'>
+                <div class="modal-header">
+                    <h4 class="modal-title">Forgot Password</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="heading">{{success}}</p>
+                    <button type="button" class="btn btn-info" style="float:right!important;margin-top: -21px;" ng-click="vm.gologin()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<tmpl-footer></tmpl-footer>
+<script>
+
+        // validatations
+ $.validator.setDefaults({
+  ignore: [],
+  // any other default options and/or rules
+ });
+  // When the browser is ready...
+  $(function() {
+
+  // Setup form validation on the #forgot-form element
+  $("#forgot-form").validate({
+
+  // Specify the validation rules
+  rules: {
+  email: { required: true}
+
+  },
+
+  // Specify the validation error messages
+  messages: {
+  email: {required:"Please enter email"}
+  },
+
+  submitHandler: function(form) {
+ form.submit();
+  }
+  });
+
+});
+</script>

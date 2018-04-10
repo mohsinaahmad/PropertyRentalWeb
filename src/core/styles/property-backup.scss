@@ -1,0 +1,157 @@
+/* CSS Document */
+body{font-family: 'Montserrat', sans-serif; font-size:14px; color:#313131; letter-spacing:1px;}
+a, .btn{transition:all .5s ease;}
+a{color:#00a4fa;}
+a:focus{outline:none;}
+strong{font-weight:500;}
+.btn{text-transform:uppercase; border:none; padding:10px 25px;}
+.btn-primary{background:#00a4fa;}
+.btn-primary:hover{background:#fbc33a;}
+
+.btn-info{background:#fbc33a;}
+.btn-info:hover{background:#00a4fa;}
+
+/***** header *****/
+.banner{background:url(../img/bg-banner.jpg) no-repeat 0 0; background-size:cover;}
+.header{padding:10px 0; border-bottom:solid 1px #9394a4;}
+.navbar{margin:0;}
+.navbar-brand{height:auto; padding:0;}
+.navbar-default{background:none; border:none; border-radius:0;}
+.navbar-default .navbar-nav > li > a{color:#c1c3cd; text-transform:uppercase; padding:7px 20px; border:solid 1px transparent;}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{color:#fff; background:none;}
+.navbar-nav{margin-top:15px;}
+.navbar-default .navbar-nav > li.login > a{border:solid 1px #fff; border-radius:5px; margin:0 20px; color:#fff;}
+.navbar-default .navbar-nav > li.signup > a{background:#fff; border-radius:5px; color:#313131;}
+
+.banner-content{margin:10% 0;}
+
+.search-box{max-width:712px; margin:0 auto; border-radius:8px; background:#fff; margin-bottom:10%}
+.search-box-header{background:#fbc33a; text-align:center; color:#fff; padding:20px 0; border-radius:8px 8px 0 0; font-size:20px; font-weight:400; text-transform:uppercase;}
+.search-box-content{padding:30px;}
+.search-box-content label{font-weight:normal; font-weight:400; text-transform:uppercase; font-size:15px; color:#757575;}
+.search-box-content .form-control{border:none; border-bottom:solid 1px #cbcbcb; padding:0; color:#989898; box-shadow:none; border-radius:0; margin-bottom:40px;}
+.search-box-content .form-control:focus{box-shadow:none; outline:none;}
+.search-box-content .btn-primary{background:#00a4fa; border:none; padding:10px 25px;}
+.search-box-content .btn-primary:hover{background:#fbc33a;}
+
+.banner .container{position:relative;}
+.scroll-down{position:absolute; bottom:0; left:0; width:60px; height:270px; background:url(../img/img-scroll-down.png) no-repeat 0 0;}
+
+/****** welcome box ******/
+.welcome-box{padding:35px 0; border-bottom:solid 1px #cbcbcb;}
+.welcome-box h2{font-weight:600; font-size:40px; text-transform:uppercase; position:relative; padding-top:20px;}
+.welcome-box h2:after{background:#fbc33a; position:absolute; bottom:-20px; left:0; width:75px; height:4px; content:'';}
+.welcome-box p{margin-bottom:30px;}
+.welcome-content{padding:25px; padding-right:0; border-left:solid 1px #ccc; font-size:16px;}
+.welcome-content .btn{padding:12px 20px; font-size:16px;}
+
+/***** service section *****/
+.services-row{border-bottom:solid 1px #cbcbcb;}
+.services-row + .services-row{border:none;}
+.service-box{padding:40px 15%; font-size:18px; text-align:center;}
+.service-box P{min-height:51px;}
+.service-icon{display:inline-block; width:102px; height:102px; background:url(../img/icon-services.png) 0 0;  -webkit-transition: -webkit-transform .8s ease-in-out; -ms-transition: -ms-transform .8s ease-in-out; transition: transform .8s ease-in-out;}
+.service-box:hover .service-icon{-webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -o-transform: rotate(360deg); -ms-transform: rotate(360deg); transform: rotate(360deg);}
+.service-icon.icon-search{background-position:0 0;}
+.service-icon.icon-track{background-position:-102px 0;}
+.service-icon.icon-find{background-position:-204px 0;}
+.service-icon.icon-manage{background-position:-306px 0;}
+.service-icon.icon-info{background-position:-408px 0;}
+.services-row .border{border-right:solid 1px #cbcbcb;}
+
+/***** column sections *****/
+.col-container {display: table; width: 100%;}
+.col {display: table-cell; width:50%;}
+.content-col{padding:20% 10%;}
+.content-col h2{color:#fff; font-size:30px; position:relative; text-transform:uppercase; margin-bottom:70px;}
+.content-col h2:after{background:#fbc33a; position:absolute; bottom:-20px; left:0; width:145px; height:4px; content:'';}
+.content-col p{margin:0; font-size:16px; color:#fff; font-weight:300;}
+.bg-property-investment{background:url(../img/img-search-property.jpg) no-repeat 0 0; background-size:cover;}
+.bg-track-performance{background:url(../img/img-track.jpg) no-repeat 0 0; background-size:cover;}
+.bg-find-market{background:url(../img/img-find-market.jpg) no-repeat 0 0; background-size:cover;}
+.bg-manage-tenants{background:url(../img/img-manage-tenants.jpg) no-repeat 0 0; background-size:cover;}
+.bg-find-info{background:url(../img/img-find-info.jpg) no-repeat 0 0; background-size:cover;}
+.bg-search{background:url(../img/bg-search.jpg) no-repeat 0 0; background-size:cover;}
+
+
+/***** footer ******/
+.footer{background:#00a4fa; padding:30px 0; color:#fff;}
+.footer-nav{text-align:right;}
+.footer-nav li{display:inline-block; margin-left:40px; font-size:15px; text-transform:uppercase;}
+.footer-nav li a{color:#fff;}
+.contact-form{padding:60px 30px; padding-right:0; padding-bottom:35px; border-left:solid 1px #cbcbcb;}
+.contact-form .row{margin-bottom:35px;}
+.contact-form .row.last-row{margin-bottom:0;}
+.contact-form label{font-size:15px; margin-bottom:20px; text-transform:uppercase;}
+.contact-form .form-control{padding:0 10px; height:38px; line-height:38px; border-radius:0; border-color:#cbcbcb; box-shadow:none;}
+.contact-form textarea.form-control{height:130px; line-height:normal; resize:none;}
+.contact h2{padding-top:50%; color:#313131; font-size:40px; position:relative; text-transform:uppercase; margin-bottom:50px;}
+.contact h2:after{background:#fbc33a; position:absolute; bottom:-20px; left:0; width:145px; height:4px; content:'';}
+.contact p{font-size:15px;}
+
+/***** mobile menu *****/
+.navbar-default .navbar-toggle .icon-bar{background-color: #fff;}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{margin-top:10px;}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{background-color:#fbc33a;}
+
+/***** modal box *****/
+.modal {text-align: center; padding: 0!important;}
+.modal:before {content: '';  display: inline-block;  height: 100%;  vertical-align: middle;  margin-right: -4px;}
+.modal-dialog {display: inline-block; text-align: left; vertical-align: middle;}
+
+/***** popup *****/
+.popup{letter-spacing:0;}
+.popup .modal-content{border-radius:8px;}
+.popup .modal-header{background:#fbc33a; border-radius:8px 8px 0 0; position:relative;}
+.popup .modal-title{font-size:22px; color:#313131; text-transform:uppercase; text-align:center;}
+.popup .close{width:22px; height:22px; background:url(../img/icon-cross.png) no-repeat 0 0; opacity:1; position:absolute; top:22px; right:20px;}
+.popup .modal-body{padding:5% 10%;}
+.popup .heading{padding-bottom:5%; font-size:16px; text-align:center;}
+
+.login-form .form-control{height:44px; line-height:44px; border-color:#cbcbcb; box-shadow:none; border-radius:6px; font-size:16px;}
+.login-form .input-group{margin-bottom:20px; width:100%;}
+.login-form .input-group-addon{border-color:#fbc33a; background:#fbc33a; padding:6px 0; width:55px; text-align:center;}
+.login-form .input-group-addon i{width:24px; height:24px; display:inline-block; background:url(../img/icon-logins.png) no-repeat center;}
+.login-form .input-group-addon i.icon-user{background-position:0 0;}
+.login-form .input-group-addon i.icon-email{background-position:-24px 0;}
+.login-form .input-group-addon i.icon-password{background-position:-48px 0;}
+.forgot-pass{text-align:right;}
+.forgot-pass a{color:#313131; text-decoration:underline;}
+.forgot-pass a:hover{text-decoration:none;}
+.login-buttons{max-width:270px; margin:0 auto; padding:30px 0; text-align:center;}
+.login-buttons img{vertical-align:middle;}
+.login-buttons .btn{display:block; width:100%;}
+.login-buttons span{display:inline-block; padding:15px 0; font-size:16px;}
+.login-buttons .btn-info{color:#313131;}
+.login-buttons .btn-danger{background:#d6492f; line-height:24px;}
+
+.login-form .note{font-size:16px; text-align:center;}
+.login-form .note a{color:#313131; text-decoration:underline;}
+.login-form .note a:hover{text-decoration:none;}
+.login-form .radio-buttons{padding:0 0 30px 0;}
+.login-form .radio-buttons li{display: inline-block; margin:0;  margin-right: 20px; font-size: 18px;}
+.login-form li{margin:0;}
+
+.signup-terms a{text-decoration:underline;}
+.signup-terms a:hover{text-decoration:none;}
+
+/***** custom radio/ checkbox button *****/
+.radio input[type="radio"] {display:none;}  
+.radio input + label{padding-left:0;}
+.radio input + label:before {display:inline-block; width:22px;	height:22px; background:url(../img/icon-radio-button.png) no-repeat 0 0; content:''; vertical-align:middle; margin-right:7px; margin-bottom:.2em;}
+.radio input:checked + label:before {background-position:-22px 0;}
+
+.checkbox input[type="checkbox"] {display:none;}  
+.checkbox input + label{padding-left:0;}
+.checkbox input + label:before {display:inline-block; width:20px;	height:20px; background:url(../img/icon-checkbox-button.png) no-repeat 0 0; content:''; vertical-align:middle; margin-right:7px; margin-bottom:.2em;}
+.checkbox input:checked + label:before {background-position:-20px 0;}
+
+
+
+/*login*/
+.login-form .modal-header {
+  background: #fbc33a none repeat scroll 0 0;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+}
+/*login*/

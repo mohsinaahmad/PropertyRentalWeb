@@ -1,0 +1,89 @@
+<tmpl-header></tmpl-header>
+<form name="resetForm" ng-submit="submitForm()" novalidate>
+    <input type="hidden" name="_csrf" value="<%-_csrf%>">
+    <div class="alert alert-danger fade in" ng-if="unsuccess">
+        <button class="close" style="top: 114px;right: 11px;" type="button" data-dismiss="alert">
+            <i class="fa fa-times-circle-o" ng-click="close()"></i>
+        </button>
+
+        <div>
+            {{unsuccess}}
+        </div>
+    </div>
+    <div class="alert alert-success fade in" ng-if="success">
+        <button class="close" style="top: 114px;right: 11px;" type="button" data-dismiss="alert">
+            <i class="fa fa-times-circle-o" ng-click="login()"></i>
+        </button>
+
+
+        <div>
+            {{success}}
+        </div>
+
+    </div>
+    <div class="popup  login-form">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Reset Password</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="heading">Please enter your new password</p>
+                    <div class="form">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-password"></i></span>
+                            <input class="form-control" name="password" ng-model="password"
+                                   placeholder="New Password" type="password" autofocus required>
+                        </div>
+                     
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-password"></i></span>
+                            <input class="form-control" name="confirm" ng-model="confirm"
+                                   placeholder="Confirm Password" type="password" required password-verify="{{password}}">
+                        </div>
+                        <p ng-show="resetForm.confirm.$error.passwordVerify" class="help-block">Enter confirm password same as new password</p>
+                        <div class="form-group" ng-if="password">
+                            <label>Password Strength</label>
+                            <password-strength ng-model="password"></password-strength>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="forgot-pass"><a href="/login">Back to Login</a></div>
+                            </div>
+                        </div>
+
+                        <div class="login-buttons">
+                            <input type="Submit" value="Submit" class="btn btn-info" ng-disabled="resetForm.$invalid">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<tmpl-footer></tmpl-footer>
+
+<script type="text/ng-template" id="myModal.html">
+    <div class="modal-header" data-backdrop="static">
+        <button type="button" class="close" data-dismiss="modal"></button>
+        <h4 class="modal-title">Success</h4>
+    </div>
+    <div class="modal-body">
+        <p>Your Password has been Reset!</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+
+    </div>
+
+</script>

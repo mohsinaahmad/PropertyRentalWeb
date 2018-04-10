@@ -1,0 +1,74 @@
+<tmpl-header></tmpl-header>
+<section id="login-view">
+    <div class="container">
+        <div class="alert alert-danger fade in mt10" ng-if="unsuccess">
+            <button class="close" style="top: 103px;right: 1px;" type="button" data-dismiss="alert">
+                <i class="fa fa-times-circle-o" ng-click="close()"></i>
+            </button>
+
+            <div>
+                {{unsuccess}}
+            </div>
+        </div>
+    </div>
+
+    <div class="popup  login-form">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Log In</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="heading">You are not signed, please sign in</p>
+                    <form name="loginForm" ng-submit="submitForm()" novalidate>
+
+                        <div class="form">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="icon-user"></i></span>
+                                <input class="form-control" name="userName" ng-model="userName" placeholder="Username" autofocus required />
+
+                            </div>
+                            <p ng-show="loginForm.userName.$invalid && !loginForm.userName.$pristine" class="help-block">Please enter username</p>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="icon-password"></i></span>
+                                <input class="form-control" placeholder="Password" type="password" name="password" ng-model="password" required />
+
+                            </div>
+                            <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block-last">Please enter password</p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul>
+                                        <li class="checkbox">
+                                            <input id="remember" type="checkbox" ng-model="rememberme">
+                                            <label for="remember">Remember me</label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="forgot-pass"><a href="/forgot">Forgot Password?</a></div>
+                                </div>
+                            </div>
+
+                            <div class="login-buttons">
+                                <button type="submit" class="btn btn-info" ng-disabled="loginForm.$invalid">Login</button>
+                                <span>or</span>
+                                <a class="btn btn-danger" ng-click="googlecall()"><img src="images/icon-google-plus.png" alt=""> &nbsp; Login with Google</a>
+                            </div>
+                            <p class="note">Don't have an account yet? <strong>Please <a href="/signup">Sign up</a></strong></p>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="loader" ng-show="loadershow">
+    <img src="images/loader.svg" />
+</div>
+<tmpl-footer></tmpl-footer>

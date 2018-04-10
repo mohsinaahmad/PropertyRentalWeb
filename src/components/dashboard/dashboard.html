@@ -1,0 +1,326 @@
+﻿<tmpl-header></tmpl-header>
+<style>
+    .full button span {
+        background-color: limegreen;
+        border-radius: 32px;
+        color: black;
+    }
+
+    .partially button span {
+        background-color: orange;
+        border-radius: 32px;
+        color: black;
+    }
+
+    .table_datepicker table {
+        width: 100%;
+    }
+
+        .table_datepicker table td .btn {
+            padding: 8px 15px;
+            border-radius: 0;
+        }
+
+    td.text-center.h6 {
+        color: transparent;
+    }
+
+    .form-control.custom_select {
+        height: 30px;
+        padding: 4px 12px;
+    }
+
+    .w100p {
+        display: inline-block;
+    }
+
+    .custom_select08 {
+        background-position: right 10px;
+        background-size: 32px 10px;
+    }
+</style>
+<div class="page-wrap">
+    <div class="dashboard_sect only_dashboard">
+        <div class="container-fluid">
+            <div class="dashboard_top">
+                <ol class="breadcrumb">
+                    <li><a>Home</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+                <div class="pull-right">
+
+                    <a class="btn btn-primary" ui-sref='addproperty'>Add property</a>
+                </div>
+            </div>
+            <div class="w100p pull-left portfolio">
+                <div class="row">
+                    <div class="portfolio_col">
+                        <div class="col-sm-4">
+                            <div class="box_col_sm box_col_sm02">
+                                <div class="title "><b>Portfolio Alerts</b> <a class="btn btn-primary pull-right" ui-sref="viewportfolio">View Portfolio</a></div>
+                                <div class="w100p mb20">
+                                    <select class="form-control custom_select custom_select08 mt10" ng-model="property" ng-change="vm.propertyAlerts(property)">
+                                        <option value="" selected>--Select Property--</option>
+                                        <option ng-repeat="prop in vm.properties" value="{{prop.id}}">{{prop.name}}</option>
+                                    </select>
+                                </div>
+                                <ul class="portfolio-alerts">
+                                    <li ng-repeat="propAlert in vm.alertmessageobj|filter:{propid:property}">
+                                        <small></small>
+                                        <p>
+                                            {{propAlert.alertMsg.message}}
+                                            <a data-toggle="modal" data-target="#myeyemodal" href="#" class="fa fa-eye" ng-click="vm.alertmsg(propAlert.alertMsg.message)"></a>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="box_col_sm box_col_sm04">
+                                <div class="title">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <b>Rental Income</b>
+                                        </div>
+                                        <div class="col-sm-7 mb0">
+                                            <select class="form-control custom_select custom_select08 mt0" ng-model="propertytest" ng-change="vm.selectproperty(propertytest,'year')">
+                                                <option value="" selected>--Select Property--</option>
+                                                <option ng-repeat="prop in vm.properties" value="{{prop.id}}">{{prop.name}}</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-primary mt15" ng-click="">Since start of AST</a>
+                                <a class="btn btn-primary mt15" ng-class="vm.startmonth" ng-click="vm.selectproperty(propertytest,'month')">Since start of Month</a>
+                                <a class="btn btn-primary mt15" ng-class="vm.startyear" ng-click="vm.selectproperty(propertytest,'year')">Since start of Year</a>
+                                <div class="mt50 pt20" id="test">
+                                    <canvas id="chart"></canvas>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="box_col_sm">
+                            <div class="title"><b>Payments Due</b></div>
+                            <div class="w100p mb20">
+                                <select class="form-control custom_select custom_select08 mt10" ng-model="paymentdue" ng-change="">
+                                    <option value="" selected>--Select Property--</option>
+                                    <option ng-repeat="prop in vm.properties" value="{{prop.id}}">{{prop.name}}</option>
+                                </select>
+                            </div>
+                            <div class="rental-income_col1">
+                                <div class="table-responsive rental-income" ng-repeat="pro in vm.properties | filter:{id:paymentdue}">
+                                    <h2>
+                                        <b>{{pro.name}}</b>
+                                    </h2>
+                                    <ul class="table-responsive rental-income" ng-repeat="paydue in pro.propertyUnits">
+                                        <li ng-if="paydue.tenantUserId">Rent from <b>{{paydue.firstName}} {{paydue.lastName}}</b> is due on <b>{{paydue.rentDueDate}}/{{vm.currentm()}}</b></li>
+                                        <li ng-if="!paydue.tenantUserId"><b>{{paydue.unitName}}</b> unit has no Tenant.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="w100p pull-left mt20 schedule_col">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="box_col_sm col_2">
+                            <div class="title"><b>Calendar</b> <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addeventModal">Add Event</a></div>
+                            <div class="calendar_box">
+                                <uib-datepicker ng-model='vm.activeDate' multi-select='vm.selectedDates' ng-change="vm.filterResults(dt)" format-day-title="MMMM yyyy" show-weeks="false" year-range="1" select-range='{{vm.type=="range"}}'></uib-datepicker>
+                            </div>
+                            <input type="hidden" id="my_hidden_input">
+                            <div class="property_list">
+                                <div class="table-responsive calendar-list">
+                                    <table>
+                                        <tr ng-repeat="schedule in vm.tempfiltered">
+                                            <td width="50%"><div class="one_line"><a ng-attr-title="{{schedule.title}}" class="fa fa-eye"></a> {{schedule.title}}</div></td>
+                                            <td width="40%">
+                                                {{ schedule.scheduleDate | date : "dd-MM-yyyy"}}
+                                            </td>
+                                            <td>
+                                                <a ng-click="vm.deleteschedule(schedule.id)" data-toggle="modal" data-target="#myModal" class="fa fa-trash" href="javascript:;"></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="box_col_sm col_2">
+                            <div class="title"><b>Property News / Blog</b></div>
+                            <ul class="property-news" ng-init="vm.init()">
+                                <li ng-repeat="entry in vm.entries">
+                                    <h4><a target="_blank" ng-href="{{entry.link}}">{{entry.title}}</a></h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-12 mt20">
+                <div class="row">
+                    <div class="box_col_sm case_logs0">
+                        <div id="createcase" class="title"><b>Case Logs</b><a class="btn btn-info pull-right" ui-sref='managetenants'>Tenant Case Logs</a> </div>
+                        <div class="case-logs">
+                            <div class="table-responsive">
+                                <table class="table" width="100%">
+                                    <tr>
+                                        <th width="30%">Case Creation (Creator)</th>
+                                        <th width="10%">Case Id</th>
+                                        <th width="10%">Status</th>
+                                        <th width="20%">Description</th>
+                                        <th width="12%">Documents</th>
+                                        <th width="15%"></th>
+                                    </tr>
+                                    <tr ng-repeat="case in vm.propertyCases | filter:{property:{createdBy:vm.userid}}">
+                                        <td><span>{{case.createdAt | date : "dd-MMM-yyyy"}}</span><span>{{case.createdAt | date : "hh:mm a"}}</span> <span class="tag">{{case.createdByrole}}</span></td>
+                                        <td>{{case.caseId}} {{case.createdBy}}</td>
+                                        <td>{{case.status}}</td>
+                                        <td><p class="w100p">{{case.caseDetail}}</p></td>
+                                        <td>
+                                            <a ng-repeat="doc in case.caseDocs" href="{{doc.file}}" class="link" download="" target="_blank">View Attachment</a>
+                                            <span ng-if="case.caseDocs.length==0">No Attachment</span>
+                                        </td>
+
+                                        <td><a ng-show="case.status == 'Active'" class="update_button" href="/editcase/{{case.id}}">Update / Respond</a></td>
+                                    </tr>
+                                    <tr ng-if="vm.propertyCases.length==0">
+                                        <td colspan="8">Please Create a Case.You haven't Created yet !</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Delete Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <div class="remove_section">
+                    <i class="fa fa-exclamation-circle"></i>
+                    <span>Are you sure you want to remove schedule event ?</span>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.no(deleteschedule1)">No</button>
+                <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" ng-click="vm.yes()">Yes</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Alert Message -->
+<div class="modal fade" id="myeyemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Portfolio Alert Message</h4>
+            </div>
+            <div class="modal-body">
+                {{vm.msgget}}
+            </div>
+            <div class="clearfix"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="no(eyeclose)">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Event -->
+<div class="popup  login-form new_popup">
+    <div class="modal fade" id="addeventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Event</h4>
+                </div>
+                <form name="addSchedulefrm" ng-submit="vm.saveschedule()" novalidate>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Event Title <span class="requiredfield">*</span></label>
+                                    <input class="form-control" ng-model="vm.title" placeholder="e.g. Building white wash" name="title" type="text" required>
+                                    <p ng-show="addSchedulefrm.title.$invalid && !addSchedulefrm.title.$pristine" class="help-block">Please enter title</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group custom-datepicker">
+                                    <label>Date <span class="requiredfield">*</span></label>
+                                    <p class="input-group customcalander">
+                                        <input type="text" class="form-control" datepicker-popup="{{vm.format}}" min-date="vm.todaydate" ng-blur="vm.daydiffendmortge(vm.scheduleDate)" ng-model="vm.scheduleDate" is-open="vm.opened"
+                                               ng-required="true" close-text="Close" placeholder="Select date" name="scheduleDate" numbers-only readonly/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="vm.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                    </p>
+                                    <p ng-show="addSchedulefrm.scheduleDate.$invalid && !addSchedulefrm.scheduleDate.$pristine" class="help-block">Enter correct Date (DD/MM/YYYY)</p>
+                                    <p ng-show="futurendemordateerror" class="help-block help_red">Previous Date not allowed</p>
+                                </div>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Property</label>
+                                    <select class="form-control" ng-model="vm.proprtylist" ng-change="vm.gettenat()">
+                                        <option value="" selected>--Select Property--</option>
+                                        <option ng-repeat="prop in vm.properties" value="{{prop.id}}">{{prop.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Tenant</label>
+                                    <select class="form-control" ng-model="vm.tenantlist" ng-change="">
+                                        <option value="" selected>--Select Tenant--</option>
+                                        <option ng-repeat="paydue in vm.allteants" ng-if="paydue.firstName" value="{{paydue.id}}">{{paydue.firstName}} {{paydue.lastName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default mr15" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="addSchedulefrm.$invalid">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="loader" ng-show="vm.loadershow">
+    <img src="images/loader.svg" />
+</div>
+<div class="loader" ng-show="vm.loaderyearly">
+    <img src="images/loader.svg" />
+</div>
+
+<!-- dashboard_sect end -->
+
+<div class="clearfix"></div>
+<tmpl-footer></tmpl-footer>
